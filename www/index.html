@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="css/swiper.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body >
+    <section class="showcase">
+        <div class="showcase_wrapper">
+            <div class="head_wrapper">
+                <div class="left">
+                    <img src="img/head/star.png" alt="" width="200px" height="50px">
+                    <div class="right_line"></div>
+                </div>
+                <div class="lamp_light" style="opacity: .35;">
+                    <img src="img/head/lamp.png" alt="">
+                </div>
+                <div class="right">
+                    <img src="img/head/wars.png" alt="" width="200px" height="50px">
+                    <div class="left_line"></div>
+                </div>
+            </div>
+            <div class="icon_block">
+                <div class="arrow">
+                    <div class="list_item" style="display: none;">
+                        <div class="select">
+                            <select name="select">
+                                <option value="Films">Films</option>
+                                <option value="People">People</option>
+                                <option value="Vehicles">Vehicles</option>
+                            </select>
+                        </div>
+                        <div class="schow_btn">
+                            <button>Schow</button>
+                        </div>
+                    </div>
+                    <div class="arrow_btn">
+                        <img src="img/icon/NicePng_film-grain-png_1276840.png" alt="">
+                    </div>
+                </div>
+                <div class="search">
+                    <div class="search_btn">
+                        <img src="img/icon/search-7-64.png" alt="">
+                    </div>
+                    <div class="input">
+                        <input class="input_area" type="text">
+                        <div class="radio_button">
+                            <div class="radio">
+                                <input class="radio_input" type="radio" id="films" name="data" value="films" checked>
+                                <label for="films">Films</label>
+                                <input class="radio_input" type="radio" id="people" name="data" value="people">
+                                <label for="Films">Peoples</label>
+                                <input class="radio_input" type="radio" id="vehicle" name="data" value="vehicles">
+                                <label for="Films">Vehicles</label>
+                            </div>
+                        </div>
+                        <div class="send_btn">
+                            <button>Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider_btn hidden">
+                <div class="left_sliderBtn">
+                    <img src="img/other/sliderBtn.png" alt="">
+                </div>
+                <div class="right_sliderBtn">
+                    <img src="img/other/sliderBtn.png" alt="">
+                </div>
+            </div>
+            <div class="showcase_content">
+                <div class="carousel">
+                    <div class="wrapper">
+                        <div class="swiper">
+                            <div class="swiper mySwiper">
+                                <div class="swiper-wrapper">
+                                </div>
+                            </div>      
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <video src="video/Cinematic Background HD.mp4" class="showcase_video" autoplay loop muted></video>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="js/swiper.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>
