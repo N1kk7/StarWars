@@ -15,36 +15,46 @@ p{
 .hidden{
     display: none;
 }
+.lamp_light{
+    text-align: center;
+}
 .lamp_light img{
-    width: 55px;
+    width: 25%;
     padding-top: 10px;
 }
 .left{
     border-bottom: 3px solid yellow;
     border-bottom-right-radius: 10px;
+    height: fit-content;
     padding-bottom: 65px;
 }
 .right{
     border-bottom: 3px solid yellow;
     border-bottom-left-radius: 10px;
+    height: fit-content;
+    text-align: end;
     padding-bottom: 65px;
+}
+.left img,
+.right img{
+    width: 55%;
 }
 .icon_block{
     position: absolute;
     overflow: hidden;
-    top: 100px;
+    top: 15%;
     z-index: 2;
 }
 .head_wrapper .left,
 .right{
-    padding: 17px;
+    padding: 1%;
 }
 .right_line{
     width: 165px;
     height: 3px;
     background-color: yellow;
     transform: rotate(-33deg);
-    left: 199px;
+    left: 75%;
     bottom: 26px;
     position: relative;
 }
@@ -52,16 +62,29 @@ p{
     width: 165px;
     height: 3px;
     background-color: yellow;
-    transform: rotate(33deg);
-    right: 163px;
+    transform: rotate(33deg);;
     bottom: 26px;
+    position: relative;
+}
+.arrow_btn{
+    z-index: 1;
     position: relative;
 }
 .icon_block img{
     width: 25px;
     height: 30px;
-    border: 1px solid white;
+    border: 1px solid yellow;
     border-radius: 12px;
+    padding: 5px;
+    position: relative;
+    z-index: -1;
+}
+select{
+    outline: none;
+    background-color: transparent;
+    color: yellow;
+    border-radius: 6px;
+    font-size: 18px;
 }
 .select,
 .schow_btn{ 
@@ -70,12 +93,23 @@ p{
     bottom: 11px;
     margin: 0 10px;
 }
+.schow_btn button{
+    background-color: transparent;
+    color: yellow;
+    font-size: 18px;
+    border-radius: 6px;
+}
 .input .input_area{
     border-radius: 10px;
     width: 300px;
     height: 25px;
     margin: 0 10px 0 0;
-    background-color: darkgray;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid yellow;
+    outline: none;
+    color: yellow;
+    font-size: 25px;
 }
 .input{
     display: none;
@@ -98,6 +132,7 @@ p{
 }
 .list_item{
     margin-left: 15px;
+    padding-top: 20px;
 }
 .radio{
     display: inline-block;
@@ -108,7 +143,7 @@ p{
     width: 14px;
 }
 .radio label{
-    color: white;
+    color: yellow;
     position: relative;
     bottom: 7px;
 }
@@ -116,6 +151,12 @@ p{
     position: relative;
     text-align: end;
     padding-right: 25px;
+}
+.send_btn button{
+    background-color: transparent;
+    color: yellow;
+    border-radius: 6px;
+    font-size: 18px;
 }
 .showcase{
     background-color: #000;
@@ -384,4 +425,73 @@ p{
     right: 5%;
     transform: rotateZ(90deg);
 }
-/* add comment */
+@media only screen and (max-width: 1024px) {
+    /* .icon_block {
+        top: 13%;
+    } */
+}
+@media only screen and (max-width: 768px) {
+    /* .icon_block {
+        top: 13%;
+    } */
+    .left_item{
+        position: relative;
+        right: 15px;
+    }
+    .list_item{
+        margin-left: 0;
+    }
+    .schow_btn button,
+    select {
+        font-size: 13px;
+    }
+    .icon_block img {
+        width: 15px;
+        height: 20px;
+    }
+    .input .input_area {
+        width: 90%;
+        font-size: 15px;
+        margin-right: 60px;
+    }
+    .radio_input{
+        width: 10px;
+    }
+    label{
+        font-size: 10px;
+    }
+    .send_btn button {
+        font-size: 13px;
+    }
+}
+@media only screen and (max-width: 425px) {
+    .icon_block {
+        top: 10%;
+    }
+}
+@media only screen and (max-width: 375px) {
+    .icon_block {
+        top: 8%;
+    }
+}
+@media only screen and (max-width: 320px) {
+    .list_item {
+        padding-top: 13px;
+    }
+    .icon_block img {
+        width: 8px;
+        height: 15px;
+    }
+    .input .input_area {
+        font-size: 12px;
+    }
+    .radio_button{
+        padding-right: 10px;
+    }
+    .send_btn{
+        padding-top: 5px;
+    }
+    .select, .schow_btn {
+        margin: 0 5px;
+    }
+}

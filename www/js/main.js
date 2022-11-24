@@ -1,5 +1,13 @@
 document.querySelector('video').playbackRate = 0.65;
 
+const arrow_btn = document.querySelector('.arrow_btn');
+const search_btn = document.querySelector('.search_btn');
+const select = document.querySelector('select');
+const input = document.querySelector('input');
+const people = document.querySelector('#people');
+const films = document.querySelector('#films');
+const vehicle = document.querySelector('#vehicle');
+
 let textAreaValue;
 let linkNextPage;
 let itemBlock;
@@ -8,12 +16,12 @@ let result;
 let insert;
 let search;
 
-$('.search_btn').on('click', function(){
-    $('.input').toggle(1100);
-});
-
-$('.arrow_btn').on('click', function(){
-    $('.list_item').toggle(800);
+$(window).on('click', function(event){
+const films = document.querySelector('#films');
+   if(event.target !== select && event.target !== input && event.target !== films && event.target !== people && event.target !== vehicle ){
+    event.target === arrow_btn ? $('.list_item').toggle(800) : $('.list_item').hide(800);
+    event.target === search_btn ? $('.input').toggle(1100) : $('.input').hide(1100);
+   }
 });
 
 $('.left_sliderBtn').on('click', function(){
