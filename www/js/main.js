@@ -8,11 +8,11 @@ const people = document.querySelector('#people');
 const films = document.querySelector('#films');
 const vehicle = document.querySelector('#vehicle');
 
+let filmUrl
 let textAreaValue;
 let linkNextPage;
 let itemBlock;
 let imgId;            
-let result; 
 let insert;
 let search;
 
@@ -41,16 +41,52 @@ $('.send_btn').on('click', function(){
         textAreaValue = this.value;
     });
     if (textAreaValue) {
-        $.ajax({
-            url: `https://swapi.dev/api/${itemBlock}/?search=${textAreaValue}`,
-            method: "GET",
-            success: function(result) {
-                swiperDestroy();
-                addHtml(result.results);
-                swiperInit();
-                enableButton();
+        textAreaValue = textAreaValue.toLowerCase().replaceAll(' ', '');
+        if (itemBlock === 'films') {
+            switch (textAreaValue) {
+                case 'anewhope':
+                    filmUrl = "https://www.swapi.tech/api/films/1"
+                    break;
+                case 'theempirestrikesback':
+                    filmUrl = "https://www.swapi.tech/api/films/2"
+                    break;
+                case 'returnofthejedi':
+                    filmUrl = "https://www.swapi.tech/api/films/3"
+                    break;
+                case 'thephantommenace"':
+                    filmUrl = "https://www.swapi.tech/api/films/4"
+                    break;
+                case 'attackoftheclones"':
+                    filmUrl = "https://www.swapi.tech/api/films/5"
+                    break;
+                case 'revengeofthesith"':
+                    filmUrl = "https://www.swapi.tech/api/films/6"
+                    break;
             }
-        });
+            $.ajax({
+                url: `${filmUrl}`,
+                method: "GET",
+                success: function(result) {
+                    linkNextPage = null;
+                    swiperDestroy();
+                    addHtml(result.result);
+                    swiperInit();
+                    enableButton();
+                }
+            });
+        } else {
+            $.ajax({
+                url: `https://swapi.tech/api/${itemBlock}/?name=${textAreaValue}`,
+                method: "GET",
+                success: function(result) {
+                    linkNextPage = null;
+                    swiperDestroy();
+                    addHtml(result.result);
+                    swiperInit();
+                    enableButton();
+                }
+            });
+        }
     };
     $('.input').hide(1100);
     search = true;
@@ -60,7 +96,7 @@ $('.schow_btn').on('click', function(){
     $('select').val(function() {
         itemBlock = this.value.toLowerCase();
         $.ajax({
-            url: `https://swapi.dev/api/${this.value.toLowerCase()}`,
+            url: `https://swapi.tech/api/${itemBlock}`,
             method: "GET",
             success: function(result) {
                 if(result.next){
@@ -70,9 +106,10 @@ $('.schow_btn').on('click', function(){
                 }
                 swiperDestroy();
                 $('.swiper-wrapper').empty();
-                addHtml(result.results);
-                swiperInit();
+
+                addHtml(result.results || result.result);
                 enableButton();
+                swiperInit();
             }
         });
         $('.list_item').hide(1100);
@@ -95,57 +132,109 @@ function nextPage (page){
 };
 
 function addHtml(array) {
+    
+    let urlArr = []
+    let cartArr = [];
+
     let item = array;
-         if (search) {
-            $('.slider_btn').addClass('hidden');
-            $(swiper).empty();
-            $('.swiper-wrapper').empty();
-            search = false;
-         } else {
-            $('.slider_btn').removeClass('hidden');
-         }
-    item.forEach(element => {
-        result = element;
-        imgId = element.url.replace(`https://swapi.dev/api/${itemBlock}/`, '').replaceAll('/', '');
-        operate(element);
-    })
+        if (search) {
+        item.length > 1 ? $('.slider_btn').removeClass('hidden') : $('.slider_btn').addClass('hidden');
+        $(swiper).empty();
+        $('.swiper-wrapper').empty();
+        search = false;
+        } else {
+        $('.slider_btn').removeClass('hidden');
+    }
+    if (itemBlock != 'films' || item.length != undefined) {
+        item.forEach(element => {
+            if (element.properties) {
+                imgId = element.properties.url.slice(27).replaceAll('/', '');
+                enableButton()
+                operate(element.properties)
+                enableButton()
+            } else {
+                urlArr.push(element.url)
+            }
+        })
+    } else {
+        imgId = item.properties.url.slice(27).replaceAll('/', '');
+                enableButton()
+                operate(item.properties)
+                enableButton()
+    }
+    
+    function httpGet(url) {
+
+        return new Promise(function(resolve, reject) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onload = function() {
+            if (this.status == 200) {
+            resolve(this.response);
+            } else {
+            var error = new Error(this.statusText);
+            error.code = this.status;
+            reject(error);
+            }
+        };
+        xhr.onerror = function() {
+            reject(new Error("Network Error"));
+        };
+        xhr.send();
+        });
+    }
+
+    Promise.all( urlArr.map(httpGet) )
+        .then(results => {
+        results.map(element => {
+            element = JSON.parse(element)
+            cartArr.push(element.result.properties)
+        })
+        cartArr.map(element => {
+            imgId = element.url.slice(27).replaceAll('/', '');
+            operate(element);
+        })
+        enableButton();
+    });
+
     function operate (result) {
+        const computedResult = result.properties ? result.properties : result;
         const films = `<div class="item_list">
-    <ul>
-        <li class="list_tittle"><p class="list_tittle">${result.title || result.name}</p></li>
-        <li><p>Director:</p> <p class="parameters">${result.director}</p></li>
-        <li><p>Producer:</p> <p class="parameters">${result.producer}</p></li>
-        <li><p>Release Date:</p> <p class="parameters">${result.release_date}</p></li>
-        <!--<li><p>Characters:</p> <p class="parameters">${result.characters}</p></li>-->
-        <!--<li><p>Vehicles:</p> <p class="parameters">${result.vehicles}</p></li>-->
-    </ul>
-</div> `;
-const people = `<div class="item_list">
-    <ul>
-        <li class="list_tittle"><p class="list_tittle">${result.title || result.name}</p></li>
-        <li><p>Height:</p> <p class="parameters">${result.height}</p></li>
-        <li><p>Mass:</p> <p class="parameters">${result.mass}</p></li>
-        <li><p>Hair Color:</p> <p class="parameters">${result.hair_color}</p></li>
-        <li><p>Birth of Year:</p> <p class="parameters">${result.birth_year}</p></li>
-        <li><p>Gender:</p> <p class="parameters">${result.gender}</p></li>
-        <!--<li><p>Characters:</p> <p class="parameters">${result.characters}</p></li>-->
-        <!--<li><p>Vehicles:</p> <p class="parameters">${result.vehicles}</p></li>-->
-    </ul>
-</div> `;
-const vehicles = `<div class="item_list">
-    <ul>
-        <li class="list_tittle"><p class="list_tittle">${result.title || result.name}</p></li>
-        <li><p>Model:</p> <p class="parameters">${result.model}</p></li>
-        <li><p>Manufacturer:</p> <p class="parameters">${result.manufacturer}</p></li>
-        <li><p>Coast:</p> <p class="parameters">${result.cost_in_credits}</p></li>
-        <li><p>Length:</p> <p class="parameters">${result.length}</p></li>
-        <li><p>Max Speed:</p> <p class="parameters">${result.max_speed}</p></li>
-        <li><p>Crewr:</p> <p class="parameters">${result.crew}</p></li>
-        <li><p>Passengers:</p> <p class="parameters">${result.passengers}</p></li>
-        <!--<li><p>Characters:</p> <p class="parameters">${result.characters}</p></li>-->
-        <!--<li><p>Vehicles:</p> <p class="parameters">${result.vehicles}</p></li>-->
-    </ul>
-</div> `;
+        <ul>
+            <li class="list_tittle"><p class="list_tittle">${computedResult.title || computedResult.name}</p></li>
+            <li><p>Director:</p> <p class="parameters">${computedResult.director}</p></li>
+            <li><p>Producer:</p> <p class="parameters">${computedResult.producer}</p></li>
+            <li><p>Release Date:</p> <p class="parameters">${computedResult.release_date}</p></li>
+            <!--<li><p>Characters:</p> <p class="parameters">${computedResult.characters}</p></li>-->
+            <!--<li><p>Vehicles:</p> <p class="parameters">${computedResult.vehicles}</p></li>-->
+        </ul>
+        </div> `;
+        const people = `<div class="item_list">
+            <ul>
+                <li class="list_tittle"><p class="list_tittle">${computedResult.title || computedResult.name}</p></li>
+                <li><p>Height:</p> <p class="parameters">${computedResult.height}</p></li>
+                <li><p>Mass:</p> <p class="parameters">${computedResult.mass}</p></li>
+                <li><p>Hair Color:</p> <p class="parameters">${computedResult.hair_color}</p></li>
+                <li><p>Birth of Year:</p> <p class="parameters">${computedResult.birth_year}</p></li>
+                <li><p>Gender:</p> <p class="parameters">${computedResult.gender}</p></li>
+                <!--<li><p>Characters:</p> <p class="parameters">${computedResult.characters}</p></li>-->
+                <!--<li><p>Vehicles:</p> <p class="parameters">${computedResult.vehicles}</p></li>-->
+            </ul>
+        </div> `;
+        const vehicles = `<div class="item_list">
+            <ul>
+                <li class="list_tittle"><p class="list_tittle">${computedResult.title || computedResult.name}</p></li>
+                <li><p>Model:</p> <p class="parameters">${computedResult.model}</p></li>
+                <li><p>Manufacturer:</p> <p class="parameters">${computedResult.manufacturer}</p></li>
+                <li><p>Coast:</p> <p class="parameters">${computedResult.cost_in_credits}</p></li>
+                <li><p>Length:</p> <p class="parameters">${computedResult.length}</p></li>
+                <li><p>Max Speed:</p> <p class="parameters">${computedResult.max_speed}</p></li>
+                <li><p>Crewr:</p> <p class="parameters">${computedResult.crew}</p></li>
+                <li><p>Passengers:</p> <p class="parameters">${computedResult.passengers}</p></li>
+                <!--<li><p>Characters:</p> <p class="parameters">${computedResult.characters}</p></li>-->
+                <!--<li><p>Vehicles:</p> <p class="parameters">${computedResult.vehicles}</p></li>-->
+            </ul>
+        </div> `;
         if(itemBlock === 'films'){
             insert = films;
         } else if (itemBlock === 'people') {
@@ -158,33 +247,32 @@ const vehicles = `<div class="item_list">
                                     <div class="slide">
                                         <div class="image_wrapper">
                                             <div class="image_left">
-                                                <div class="image" style="background-image: url(img/${itemBlock}/${itemBlock}${imgId}.png);"></div>
+                                                <div class="image" style="background-image: url(img/${itemBlock}/${imgId}.png);"></div>
                                             </div>
                                             <div class="image_right">
-                                                <div class="image" style="background-image: url(img/${itemBlock}/${itemBlock}${imgId}.png);"></div>
+                                                <div class="image" style="background-image: url(img/${itemBlock}/${imgId}.png);"></div>
                                             </div>
                                         </div>
                                         <div class="item_tittle">
-                                        <div class="item_tittle"><p>${result.title || result.name}</p></div>
+                                        <div class="item_tittle"><p>${computedResult.title || computedResult.name}</p></div>
                                             <div class="show_more">
                                             <img src="img/other/moreBtn.png" alt="">
                                             </div>
                                             <div>${insert}</div>
                                         </div>
                                 </div>`)
-
         } else {
             $('.swiper-wrapper').append(`<div class="swiper-slide">
                                         <div class="slide">
                                             <div class="image_wrapper">
                                                 <div class="image_left">
-                                                    <div class="image" style="background-image: url(img/${itemBlock}/${itemBlock}${imgId}.png);"></div>
+                                                    <div class="image" style="background-image: url(img/${itemBlock}/${imgId}.png);"></div>
                                                 </div>
                                                 <div class="image_right">
-                                                    <div class="image" style="background-image: url(img/${itemBlock}/${itemBlock}${imgId}.png);"></div>
+                                                    <div class="image" style="background-image: url(img/${itemBlock}/${imgId}.png);"></div>
                                                 </div>
                                             </div>
-                                            <div class="item_tittle"><p>${result.title || result.name}</p></div>
+                                            <div class="item_tittle"><p>${computedResult.title || computedResult.name}</p></div>
                                             <div class="show_more">
                                                 <img src="img/other/moreBtn.png" alt="">
                                             </div>

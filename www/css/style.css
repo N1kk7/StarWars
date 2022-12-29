@@ -203,7 +203,6 @@ select{
     height: calc(100% - 200px);
 }
 .wrapper{
-    width: 1000px;
     position: relative;
     margin: 0 auto;
 }
@@ -463,10 +462,21 @@ select{
     .send_btn button {
         font-size: 13px;
     }
+    
 }
 @media only screen and (max-width: 425px) {
     .icon_block {
         top: 10%;
+    }
+    .slider_btn{
+        display: none;
+    }
+    .showcase_content {
+        padding: 130px 0 50px 0;
+        /* height: calc(100% - 180px); */
+    }
+    .slide {
+        height: calc(100vh - 80px*2);
     }
 }
 @media only screen and (max-width: 375px) {
