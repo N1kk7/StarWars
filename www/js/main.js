@@ -16,7 +16,7 @@ let imgId;
 let insert;
 let search;
 
-$(window).on('click', function(event){
+$(window).on('click touch', function(event){
 const films = document.querySelector('#films');
    if(event.target !== select && event.target !== input && event.target !== films && event.target !== people && event.target !== vehicle ){
     event.target === arrow_btn ? $('.list_item').toggle(800) : $('.list_item').hide(800);
@@ -24,17 +24,17 @@ const films = document.querySelector('#films');
    }
 });
 
-$('.left_sliderBtn').on('click', function(){
+$('.left_sliderBtn').on('click touch', function(){
     $('.item_list').removeClass('item_list_active');
     $('.show_more').removeClass('show_more_active');
 });
 
-$('.right_sliderBtn').on('click', function(){
+$('.right_sliderBtn').on('click touch', function(){
     $('.item_list').removeClass('item_list_active');
     $('.show_more').removeClass('show_more_active');
 });
 
-$('.send_btn').on('click', function(){
+$('.send_btn').on('click touch', function(){
     itemBlock = '';
     itemBlock = $('.radio_input[name="data"]:checked').val();
     $('.input_area').val(function(){
@@ -92,7 +92,7 @@ $('.send_btn').on('click', function(){
     search = true;
 });
 
-$('.schow_btn').on('click', function(){
+$('.schow_btn').on('click touch', function(){
     $('select').val(function() {
         itemBlock = this.value.toLowerCase();
         $.ajax({
