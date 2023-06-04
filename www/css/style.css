@@ -482,7 +482,7 @@ select{
         display: none;
     }
     .showcase_content {
-        padding: 100px 0 50px 0;
+        padding: 110px 0 50px 0;
         /* height: calc(100% - 180px); */
     }
     .show_more {
@@ -493,7 +493,7 @@ select{
         bottom: 70px;
     }
     .slide {
-        height: calc(100vh - 80px*2);
+        height: calc(110vh - 80px*2);
     }
     .item-tittle{
         position: relative;
@@ -501,7 +501,7 @@ select{
     }
     .item_list_active {
         height: 390px;
-        top: -464px;
+        top: -487px;
     }
 }
 @media only screen and (max-width: 375px) {
