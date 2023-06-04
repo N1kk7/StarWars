@@ -16,7 +16,9 @@ let imgId;
 let insert;
 let search;
 
-$(window).on('click touch', function(event){
+$(window).on('click touchstart', function(event){
+    // console.log(event.target);
+    event.stopPropagation()
 const films = document.querySelector('#films');
    if(event.target !== select && event.target !== input && event.target !== films && event.target !== people && event.target !== vehicle ){
     event.target === arrow_btn ? $('.list_item').toggle(800) : $('.list_item').hide(800);
@@ -24,17 +26,17 @@ const films = document.querySelector('#films');
    }
 });
 
-$('.left_sliderBtn').on('click touch', function(){
+$('.left_sliderBtn').on('click touchstart', function(){
     $('.item_list').removeClass('item_list_active');
     $('.show_more').removeClass('show_more_active');
 });
 
-$('.right_sliderBtn').on('click touch', function(){
+$('.right_sliderBtn').on('click touchstart', function(){
     $('.item_list').removeClass('item_list_active');
     $('.show_more').removeClass('show_more_active');
 });
 
-$('.send_btn').on('click touch', function(){
+$('.send_btn').on('click touchstart', function(){
     itemBlock = '';
     itemBlock = $('.radio_input[name="data"]:checked').val();
     $('.input_area').val(function(){
@@ -92,7 +94,7 @@ $('.send_btn').on('click touch', function(){
     search = true;
 });
 
-$('.schow_btn').on('click touch', function(){
+$('.schow_btn').on('click touchstart', function(){
     $('select').val(function() {
         itemBlock = this.value.toLowerCase();
         $.ajax({
