@@ -486,7 +486,7 @@ select{
         /* height: calc(100% - 180px); */
     }
     .show_more {
-        top: 15px;
+        top: 5px;
     }
     .slide::after {
         box-shadow: unset;
