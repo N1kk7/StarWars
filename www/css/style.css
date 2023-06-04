@@ -486,7 +486,7 @@ select{
         /* height: calc(100% - 180px); */
     }
     .show_more {
-        top: 5px;
+        top: -5px;
     }
     .slide::after {
         box-shadow: unset;
@@ -495,7 +495,12 @@ select{
     .slide {
         height: calc(100vh - 80px*2);
     }
+    .item-tittle{
+        position: relative;
+        bottom: 15px;
+    }
     .item_list_active {
+        height: 390px;
         top: -464px;
     }
 }
