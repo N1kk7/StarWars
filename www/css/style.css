@@ -209,7 +209,7 @@ select{
     height: 100%;
 }
 .showcase_content{
-    padding: 150px 0 50px 0;
+    padding: 300px 0 50px 0;
     height: calc(100% - 200px);
 }
 .wrapper{
@@ -482,8 +482,11 @@ select{
         display: none;
     }
     .showcase_content {
-        padding: 130px 0 50px 0;
+        padding: 100px 0 50px 0;
         /* height: calc(100% - 180px); */
+    }
+    .show_more {
+        top: 15px;
     }
     .slide {
         height: calc(100vh - 80px*2);
