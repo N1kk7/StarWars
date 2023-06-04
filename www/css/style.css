@@ -488,11 +488,22 @@ select{
     .show_more {
         top: 15px;
     }
+    .slide::after {
+        box-shadow: 0 0 0px 0px #010101;
+        bottom: 70px;
+    }
     .slide {
         height: calc(100vh - 80px*2);
     }
+    .item_list_active {
+        top: -464px;
+    }
 }
 @media only screen and (max-width: 375px) {
+    .swiper-slide{
+        height: 83cqh;
+        bottom: 50px;
+    }
     .icon_block {
         top: 8%;
     }
