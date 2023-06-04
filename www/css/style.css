@@ -489,7 +489,7 @@ select{
         top: 15px;
     }
     .slide::after {
-        box-shadow: 0 0 0px 0px #010101;
+        box-shadow: unset;
         bottom: 70px;
     }
     .slide {
